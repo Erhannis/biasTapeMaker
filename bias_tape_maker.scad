@@ -22,6 +22,8 @@ biasTapeMaker(INPUT=1.5*INCH,OUTPUT=0.642857*INCH,OVERLAP_RATIO=undef);
 
 You can also add tabs, via the TAB_LENGTH (and optional TAB_WIDTH) params.
 (Note that they are not exact - BORDER (5) is added around them.)
+
+There's labels you can turn off with LABELS=false.
 */
 
 use <deps.link/erhannisScad/misc.scad>
@@ -36,17 +38,20 @@ INCH = 25.4;
 /**
 See file header.
 */
-module biasTapeMaker(INPUT=undef, OUTPUT=0.645*INCH, OVERLAP_RATIO = 1/3, TAB_LENGTH=0, TAB_WIDTH=10) {
+module biasTapeMaker(INPUT=undef, OUTPUT=0.645*INCH, OVERLAP_RATIO = 1/3, TAB_LENGTH=0, TAB_WIDTH=10, LABELS=true) {
   if (INPUT == undef) {
     FOLD_F = (OVERLAP_RATIO/2+0.5)*OUTPUT;
     INPUT0 = OUTPUT+FOLD_F*2;
-    biasTapeMaker(INPUT=INPUT0,OUTPUT=OUTPUT,OVERLAP_RATIO=OVERLAP_RATIO,TAB_LENGTH=TAB_LENGTH,TAB_WIDTH=TAB_WIDTH);
+    biasTapeMaker(INPUT=INPUT0,OUTPUT=OUTPUT,OVERLAP_RATIO=OVERLAP_RATIO,TAB_LENGTH=TAB_LENGTH,TAB_WIDTH=TAB_WIDTH,LABELS=LABELS);
   } else if (OUTPUT == undef) {
     OUTPUT0 = INPUT/(OVERLAP_RATIO+2);
-    biasTapeMaker(INPUT=INPUT,OUTPUT=OUTPUT0,OVERLAP_RATIO=OVERLAP_RATIO,TAB_LENGTH=TAB_LENGTH,TAB_WIDTH=TAB_WIDTH);
+    biasTapeMaker(INPUT=INPUT,OUTPUT=OUTPUT0,OVERLAP_RATIO=OVERLAP_RATIO,TAB_LENGTH=TAB_LENGTH,TAB_WIDTH=TAB_WIDTH,LABELS=LABELS);
+  } else if (OVERLAP_RATIO == undef) {
+    OVERLAP_RATIO0 = INPUT/OUTPUT-2;
+    biasTapeMaker(INPUT=INPUT,OUTPUT=OUTPUT,OVERLAP_RATIO=OVERLAP_RATIO0,TAB_LENGTH=TAB_LENGTH,TAB_WIDTH=TAB_WIDTH,LABELS=LABELS);
   } else {
     echo(INPUT=INPUT/INCH);
-    echo(OVERLAP_RATIO=(INPUT/OUTPUT-2));
+    echo(OVERLAP_RATIO=OVERLAP_RATIO);
     echo(OUTPUT=OUTPUT/INCH);
 
     BH = 2;
@@ -80,6 +85,12 @@ module biasTapeMaker(INPUT=undef, OUTPUT=0.645*INCH, OVERLAP_RATIO = 1/3, TAB_LE
         skew([0,0,0,45,0,0]) translate([0,INPUT_SLOT_L/2,0]) cube([INPUT,INPUT_SLOT_L,BIG],center=true);
         // Folding section void
         translate([0,INPUT_SLOT_L+INPUT_RAMP_EXTRA_L+FUNNEL_L,0]) translate([0,FOLD_SECTION_L/2,0]) cube([OUTPUT,FOLD_SECTION_L,BIG],center=true);
+        if (LABELS) { // Labels
+          FONT_SIZE = BORDER - 2;
+          translate([0,INPUT_RAMP_EXTRA_L/2-BORDER/2,BH-BH/3]) linear_extrude(height=BH/3) text(str(INPUT/INCH,"\""),size=FONT_SIZE, valign="center", halign="center");
+          translate([0,BL+BORDER/2,BH-BH/3]) linear_extrude(height=BH/3) text(str(OUTPUT/INCH,"\""),size=FONT_SIZE, valign="center", halign="center");
+          translate([BW/2+BORDER/2,BL,BH-BH/3]) rotate([0,0,-90]) linear_extrude(height=BH/3) text(str(OVERLAP_RATIO, " overlap"),size=FONT_SIZE, valign="center", halign="left");
+        }
       }
       // Funnel
       translate([0,INPUT_SLOT_L+INPUT_RAMP_EXTRA_L,0]) difference() {
