@@ -20,7 +20,8 @@ biasTapeMaker(INPUT=undef,OUTPUT=0.642857*INCH,OVERLAP_RATIO=1/3);
 biasTapeMaker(INPUT=1.5*INCH,OUTPUT=undef,OVERLAP_RATIO=1/3);
 biasTapeMaker(INPUT=1.5*INCH,OUTPUT=0.642857*INCH,OVERLAP_RATIO=undef);
 
-You can also add tabs, via the TAB_LENGTH (and optional TAB_WIDTH) params.
+You can also add tabs (for e.g. taping to feed into a sewing machine),
+via the TAB_LENGTH (and optional TAB_WIDTH) params.
 (Note that they are not exact - BORDER (5) is added around them.)
 
 There's labels you can turn off with LABELS=false.
