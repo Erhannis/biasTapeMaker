@@ -6,7 +6,7 @@ There are three things, here:
 2.1. "Proper Bias Tape maker 1/2 " for sewing machine, hem" by Oscarko ( https://www.thingiverse.com/thing:3880491 )
 2.2. "Double Fold Tape maker" by Arnie ( https://www.thingiverse.com/thing:4236663 )
 
-#1 was clever - but unfortunately, it turned out to be pretty temperamental.
+#1 was clever - but unfortunately, it turned out to be pretty temperamental.  (If you still want to try it, I've added the ability to specify your input and output sizes, and/or how much overlap you want in the folded product.  Note that I never got it to work, though.)
 
 So, I recommend you use the other two.  I've chopped off the wings of the original files and used slots to feed tape through, instead.  (These are to allow you to attach them to your ironing board or sewing machine.)  It cuts down the printing time pretty significantly, and makes "installation" more compact.  The openscad file is btm_hacks.scad, and the two recommended stl files are
 BiasTapeHalf_mod_1.stl
