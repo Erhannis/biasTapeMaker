@@ -5,6 +5,10 @@ and the
 Bias tape folder by Arnie - https://www.thingiverse.com/thing:4236663
 and chops most of the wings of, cuts slots into it to feed tape through,
 and rescales it to accept the given input width of cloth.
+
+Make sure to run get_deps.sh, or manually download the git repos listed
+therein, and copy them into "deps.link/".
+
 */
 
 use <deps.link/erhannisScad/misc.scad>
