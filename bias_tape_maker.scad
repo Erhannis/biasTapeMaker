@@ -3,6 +3,10 @@ Bias tape maker.  Reverse engineered from design by SamHillCreations
 at https://www.thingiverse.com/thing:3034992 - it's a clever design.
 Very slim; I like it.
 
+EDIT: ...Unfortunately, I've had trouble getting this design OR the
+original to perform consistently.  If you choose to try this design,
+best of luck to you.
+
 Make sure to run get_deps.sh, or manually download the git repos listed
 therein, and copy them into "deps.link/".
 
